@@ -21,11 +21,15 @@ var session_connection = require('./config/session_database');
 var app = express();
 
 app.use((req, res, next) => {
-  const allowedOrigins = ['http://localhost:3000'];
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+  // const allowedOrigins = ['http://localhost:3000'];
+  // const origin = req.headers.origin;
+  // if (allowedOrigins.includes(origin)) {
+  //   res.setHeader('Access-Control-Allow-Origin', origin);
+  // }
+
+  const origin = req.headers.origin
+  res.setHeader('Access-Control-Allow-Origin', origin)
+
   res.header(
     'Access-Control-Allow-Methods',
     'GET, POST, PATCH, PUT, DELETE, OPTIONS'
@@ -82,5 +86,9 @@ app.use('/position', pos_route);
 app.use('/relative', rela_route);
 app.use('/vehicle', veh_route);
 app.use('/user_veh', user_veh_route)
+
+app.get('/',(req,res)=>{
+  res.send("IT Nihongo 2")
+})
 
 module.exports = app;
