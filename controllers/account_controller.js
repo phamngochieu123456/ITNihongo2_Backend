@@ -104,7 +104,7 @@ account_controller.changePassword = async (req,res,next) =>{
       if(await account_controller.compare_password(old_password, json.data.password))
       {
         const user = json.data
-        user.password = new_password
+        user.password = bcrypt.hashSync(new_password,5)
         req.body = user
         next()
       }
