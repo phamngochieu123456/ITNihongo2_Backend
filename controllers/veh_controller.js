@@ -37,7 +37,7 @@ veh_ctl.insertVeh = async (req,res)=>{
   try
   {
     const veh = req.body
-    const jsonstr = await veh_model.insertveh(veh)
+    const jsonstr = await veh_model.insertVeh(veh)
     const json = JSON.parse(jsonstr)
     res.json(json)
   }

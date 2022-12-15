@@ -79,16 +79,21 @@ veh_model.getVehByType = async (type) => {
 
 veh_model.insertVeh = async (veh) => {
   try {
-    var sql =
-      'INSERT INTO vehicles (vehicle_id, vehicle_type, vehicle_plates, vehicle_color) VALUES ?';
-    new_veh = [uuid.v4(), veh.type, veh.plate, veh.color];
-    result = await query(sql, new_veh);
+    var sql = "INSERT INTO vehicles (vehicle_id, vehicle_type, vehicle_plates, vehicle_color, vehicle_active) VALUES ?";
+    var new_veh = [[uuid.v4(), veh.vehicle_type, veh.vehicle_plates, veh.vehicle_color, veh.vehicle_active]];
+    result = await query(sql,[new_veh]);
+    var data_veh = {
+      vehicle_id: new_veh[0][0],
+      vehicle_type: new_veh[0][1],
+      vehicle_plates:new_veh[0][2],
+      vehicle_color:new_veh[0][3],
+    }
     if (result.affectedRows > 0) {
-      const json = { success: true, data: result };
+      const json = { success: true, result: result,data:data_veh};
       const jsonstr = JSON.stringify(json);
       return jsonstr;
     } else {
-      const json = { success: false, data: result };
+      const json = { success: false, result: result };
       const jsonstr = JSON.stringify(json);
       return jsonstr;
     }
@@ -103,7 +108,7 @@ veh_model.insertVeh = async (veh) => {
 veh_model.updateVeh = async (veh) => {
   try {
     var sql =
-      'UPDATE vehicles SET vehicle_type = ?, vehicle_plates = ?, vehicle_color = ?, active = ? WHERE vehicle_id = ?';
+      'UPDATE vehicles SET vehicle_type = ?, vehicle_plates = ?, vehicle_color = ?, vehicle_active = ? WHERE vehicle_id = ?';
     new_veh = [veh.type, veh.plate, veh.color, veh.active, veh.id];
     result = await query(sql, new_veh);
     if (result.affectedRows > 0) {

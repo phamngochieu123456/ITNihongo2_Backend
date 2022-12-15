@@ -57,7 +57,7 @@ hist_model.historyDetail = async (userID) => {
 hist_model.getVehByHist = async (userID) => {
   try {
     const sql_query =
-      `SELECT his.check_in, his.check_out, 
+      `SELECT his.checkin_time, his.checkout_time, 
 	veh.vehicle_type, veh.vehicle_plates, veh.vehicle_color 
 	FROM histories as his INNER JOIN users_vehicles as rela 
 	ON rela.user_id = his.user_id INNER JOIN vehicles as veh 

@@ -99,10 +99,9 @@ account_controller.changePassword = async (req,res,next) =>{
 
     const jsonstr = await account_model.getUserByUser_id(user_id)
     const json = JSON.parse(jsonstr)
-
-    if(json.success == true)
+    if(json.success)
     {
-      if(await this.compare_password(old_password, json.data.password))
+      if(await account_controller.compare_password(old_password, json.data.password))
       {
         const user = json.data
         user.password = new_password
