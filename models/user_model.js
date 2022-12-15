@@ -144,7 +144,7 @@ user_model.updateUser = async (user) => {
         'UPDATE users SET email = ?, password = ?, name = ?, sex = ?, phone = ?, role = ? WHERE user_id = ?';
     user_list = [
       user.email,
-      bcrypt.hashSync(user.password, 5),
+      user.password,
       user.name,
       user.sex,
       user.phone,
