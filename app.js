@@ -28,8 +28,10 @@ app.use((req, res, next) => {
   // }
 
   const origin = req.headers.origin
+  console.log(origin)
   if(origin != null){
     res.setHeader('Access-Control-Allow-Origin', origin)
+    // res.setHeader('Access-Control-Allow-Origin', "*")
   }
 
   res.header(
